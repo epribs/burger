@@ -14,18 +14,18 @@ router.get("/", function(req, res) {
 });
 
 router.post("/create", function(req,res) {
-  burger.create(["name", "devoured"],
-    [req.body.burger_name, req.body.devoured], function(data) {
+  burger.create(["name"],
+    [req.body.name], function(data) {
       res.redirect("/");
   });
 });
 
 router.put("/update", function(req, res) {
-  var condition = "id = " + req.params.id;
+  var condition = "id = " + req.body.id;
   console.log("condition", condition);
-
+  console.log("devoured " + req.body.devoured);
   burger.update({
-    devoured: req.body.devoured
+    id: req.body.id
   }, condition, function(data) {
     res.redirect("/");
   });
