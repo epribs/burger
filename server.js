@@ -6,12 +6,11 @@ var exphbs = require("express-handlebars");
 // Import routes and give the server access to them.
 var routes = require("./controllers/burger_controller.js");
 
-var port = process.env.PORT;
-
+var PORT = process.env.PORT || 3000;
 var app = express();
 
 // Serve static content for the app from the "public" directory in the application directory.
-app.use(express.static(process.cwd() + "/public"));
+app.use(express.static(__dirname + "/public"));
 
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -26,5 +25,9 @@ app.set("view engine", "handlebars");
 
 
 app.use("/", routes);
+app.use("/update", routes);
+app.use("/create", routes);
 
-app.listen(port);
+app.listen(PORT, function() {
+  console.log("Listening on port:%s", PORT);
+});
